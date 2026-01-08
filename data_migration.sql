@@ -1,6 +1,5 @@
 USE normalized_db;
 
--- Customers
 INSERT INTO customers (name, email, phone, address)
 SELECT DISTINCT
     customer_name,
@@ -9,7 +8,6 @@ SELECT DISTINCT
     customer_address
 FROM legacy_db.legacy_orders;
 
--- Products
 INSERT INTO products (product_id, name, category, price)
 SELECT DISTINCT
     product_id,
@@ -18,7 +16,6 @@ SELECT DISTINCT
     product_price
 FROM legacy_db.legacy_orders;
 
--- Orders
 INSERT INTO orders (order_id, customer_id, order_date)
 SELECT DISTINCT
     l.order_id,
@@ -28,7 +25,6 @@ FROM legacy_db.legacy_orders l
 JOIN customers c
 ON l.customer_email = c.email;
 
--- Order Items
 INSERT INTO order_items (order_id, product_id, quantity)
 SELECT
     order_id,
@@ -36,7 +32,6 @@ SELECT
     quantity
 FROM legacy_db.legacy_orders;
 
--- Payments
 INSERT INTO payments (order_id, payment_method, payment_status)
 SELECT DISTINCT
     order_id,
